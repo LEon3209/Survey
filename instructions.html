@@ -140,6 +140,21 @@
     emailInput.addEventListener('input', validateForm);
     genreSelect.addEventListener('change', validateForm);
 </script>
-
+<script>
+document.querySelector('.proceed-button').addEventListener('click', function(e) {
+    e.preventDefault();
+    var link = document.querySelector('.entry-tab').value;
+    var email = document.qurySelector('.entry-tab').value;
+    var genre = document.querySelector('.genre-select').value;
+    
+    fetch('YOUR_WEB_APP_URL', {
+        method: 'POST',
+        mode: 'no-cors', // This prevents CORS errors
+        body: new URLSearchParams({link: link, genre: genre})
+    })
+    .then(response => alert('Data sent successfully'))
+    .catch(error => console.error('Error:', error));
+});
+</script>
 </body>
 </html>
