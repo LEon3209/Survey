@@ -69,7 +69,7 @@
     <h3>Step 5</h3>
     <p>Copy the link.</p>
     <input type="text" class="entry-tab" placeholder="Enter your link here..." id="playlist-link">
-    <input type="email" class="entry-tab" placeholder="Enter your email here..." id="email">
+    <input type="email" class="entry-tab2" placeholder="Enter your email here..." id="email">
     <p style="color: grey;">Select the Genre you want recommendations of:</p>
     <select class="genre-select" id="genre">
         <option value="Pop">Pop</option>
@@ -145,7 +145,7 @@ document.querySelector('.proceed-button').addEventListener('click', function(e) 
     e.preventDefault();
     var link = document.querySelector('.entry-tab').value;
     var genre = document.querySelector('.genre-select').value;
-    var email = document.querySelector('.entry-tab').value;
+    var email = document.querySelector('.entry-tab2').value;
     
     fetch('https://script.google.com/macros/s/AKfycbw1F6aOzkYNPBsRiHPPPHYwnABjW4zjfdJqTqaaFXMolq0mjoBfWQk3UN2MZsdq6MLD/exec', {
         method: 'POST',
