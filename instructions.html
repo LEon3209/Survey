@@ -143,8 +143,8 @@
 document.querySelector('.proceed-button').addEventListener('click', function(e) {
     e.preventDefault();
     var link = document.querySelector('.entry-tab').value;
-    var email = document.querySelector('.entry-tab2').value;
     var genre = document.querySelector('.genre-select').value;
+    var email = document.querySelector('.entry-tab2').value;
     
     fetch('https://script.google.com/macros/s/AKfycbw1F6aOzkYNPBsRiHPPPHYwnABjW4zjfdJqTqaaFXMolq0mjoBfWQk3UN2MZsdq6MLD/exec', {
         method: 'POST',
