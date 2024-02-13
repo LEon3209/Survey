@@ -143,7 +143,7 @@
 document.querySelector('.proceed-button').addEventListener('click', function(e) {
     e.preventDefault();
     var link = document.querySelector('.entry-tab').value;
-    //var genre = document.querySelector('.genre-select').value;
+    var genre = document.querySelector('.genre-select').value;
     var email = document.querySelector('.entry-tab2').value; // Get the email input value
     
     fetch('https://script.google.com/macros/s/AKfycbxEHssWsGSxWcVn5fW5Lb95d-uzhpYPSUunpq77Jgm7XHBISRh3OmiSTdDkSLxSo5J0uQ/exec', {
@@ -151,7 +151,7 @@ document.querySelector('.proceed-button').addEventListener('click', function(e) 
         mode: 'no-cors', // This prevents CORS errors
         body: new URLSearchParams({
             link: link,
-           // genre: genre,
+            genre: genre,
             email: email // Include the email in the body of the request
         })
     })
