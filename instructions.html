@@ -147,7 +147,7 @@ document.querySelector('.proceed-button').addEventListener('click', function(e) 
     var email = document.qurySelector('.entry-tab').value;
     var genre = document.querySelector('.genre-select').value;
     
-    fetch('YOUR_WEB_APP_URL', {
+    fetch('https://script.google.com/macros/s/AKfycbw1F6aOzkYNPBsRiHPPPHYwnABjW4zjfdJqTqaaFXMolq0mjoBfWQk3UN2MZsdq6MLD/exec', {
         method: 'POST',
         mode: 'no-cors', // This prevents CORS errors
         body: new URLSearchParams({link: link, genre: genre})
