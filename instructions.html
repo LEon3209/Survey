@@ -150,7 +150,7 @@ document.querySelector('.proceed-button').addEventListener('click', function(e) 
     fetch('https://script.google.com/macros/s/AKfycbw1F6aOzkYNPBsRiHPPPHYwnABjW4zjfdJqTqaaFXMolq0mjoBfWQk3UN2MZsdq6MLD/exec', {
         method: 'POST',
         mode: 'no-cors', // This prevents CORS errors
-        body: new URLSearchParams({link: link, genre: genre})
+        body: new URLSearchParams({link: link, genre: genre, email: email})
     })
     .then(response => alert('Data sent successfully'))
     .catch(error => console.error('Error:', error));
