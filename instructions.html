@@ -11,7 +11,7 @@
             padding: 20px;
             background-color: #f0f0f0;
         }
-        h1, h2 {
+        h1, h2, .error {
             color: #333;
         }
         .instructions {
@@ -37,8 +37,17 @@
             border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
+            opacity: 0.5;
+            cursor: not-allowed;
         }
-        
+        .proceed-button.enabled {
+            opacity: 1;
+            cursor: pointer;
+        }
+        .error {
+            color: #8B0000;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -59,9 +68,10 @@
     <p>Select 'Create New Playlist'.</p>
     <h3>Step 5</h3>
     <p>Copy the link.</p>
-    <input type="text" class="entry-tab" placeholder="Enter your link here...">
+    <input type="text" class="entry-tab" placeholder="Enter your link here..." id="playlist-link">
+    <input type="email" class="entry-tab" placeholder="Enter your email here..." id="email">
     <p style="color: grey;">Select the Genre you want recommendations of:</p>
-    <select class="genre-select">
+    <select class="genre-select" id="genre">
         <option value="Pop">Pop</option>
         <option value="Rock">Rock</option>
         <option value="Indie">Indie</option>
@@ -92,23 +102,44 @@
         <option value="Drum">Drum</option>
         <option value="Jazz">Jazz</option>
     </select>
-    <br>
-    <button class="proceed-button">Proceed</button>
+    <p class="error" id="error-message">Please fill all fields to proceed</p>
+    <button class="proceed-button" id="proceed-button" onclick="window.location.href= 'output.html';">Proceed</button>
 </div>
 <script>
-    document.querySelector('.proceed-button').addEventListener('click', function(e) {
-        e.preventDefault();
-        var link = document.querySelector('.entry-tab').value;
-        var genre = document.querySelector('.genre-select').value;
+    const linkInput = document.getElementById('playlist-link');
+    const emailInput = document.getElementById('email');
+    const genreSelect = document.getElementById('genre');
+    const proceedButton = document.getElementById('proceed-button');
+    const errorMessage = document.getElementById('error-message');
+
+    function validateForm() {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Simple email regex pattern
+        const isEmailValid = emailRegex.test(emailInput.value.trim());
+        const isGenreSelected = genreSelect.value.trim() !== '';
+        const isLinkValid = /^https:\/\/open\.spotify\.com\/playlist\/[a-zA-Z0-9]+/.test(linkInput.value.trim());
         
-        fetch('https://script.google.com/macros/s/AKfycbw1F6aOzkYNPBsRiHPPPHYwnABjW4zjfdJqTqaaFXMolq0mjoBfWQk3UN2MZsdq6MLD/exec', {
-            method: 'POST',
-            mode: 'no-cors', // This prevents CORS errors
-            body: new URLSearchParams({link: link, genre: genre})
-        })
-        .then(response => alert('Data sent successfully'))
-        .catch(error => console.error('Error:', error));
-    });
- </script>
+        if (isEmailValid && isGenreSelected && isLinkValid) {
+            proceedButton.disabled = false;
+            proceedButton.classList.add('enabled');
+            errorMessage.style.display = 'none';
+        } else {
+            proceedButton.disabled = true;
+            proceedButton.classList.remove('enabled');
+            errorMessage.style.display = 'block';
+            if (!isEmailValid && emailInput.value.trim() !== '') {
+                errorMessage.textContent = 'Please enter a valid email address.';
+            } else if (!isLinkValid && linkInput.value.trim() !== '') {
+                errorMessage.textContent = 'Please enter a valid Spotify playlist link.';
+            } else {
+                errorMessage.textContent = 'Please fill all fields to proceed.';
+            }
+        }
+    }
+    
+    linkInput.addEventListener('input', validateForm);
+    emailInput.addEventListener('input', validateForm);
+    genreSelect.addEventListener('change', validateForm);
+</script>
+
 </body>
 </html>
