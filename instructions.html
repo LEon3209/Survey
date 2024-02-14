@@ -68,11 +68,11 @@
     <p>Select 'Create New Playlist'.</p>
     <h3>Step 5</h3>
     <p>Copy the link.</p>
-    <form action="https://docs.google.com/spreadsheets/d/1I1OGJPwmMpqFD85K9WTkxoh3Fl0K0opHs9ZWEFL-bqM/edit#gid=0" method="POST">
-        <input type="text" class="entry-tab" placeholder="Enter your link here..." id="playlist-link">
-        <input type="email" class="entry-tab" placeholder="Enter your email here..." id="email">
+    <form method="POST" action="https://script.google.com/macros/s/AKfycbyI4CXRzJQNZFKJdJkFm6kJfL_IHmxmRxoO1mJwr_PbQSThIerYYGiKh1Wt0IjJF8C1/exec" name="form">
+        <input type="text" class="entry-tab" name="spotifyLink" placeholder="Enter your link here...">
+        <input type="email" class="entry-tab" name="email" placeholder="Enter your email here...">
         <p style="color: grey;">Select the Genre you want recommendations of:</p>
-        <select class="genre-select" id="genre">
+        <select name="genre" class="genre-select" >
             <option value="Pop">Pop</option>
             <option value="Rock">Rock</option>
             <option value="Indie">Indie</option>
