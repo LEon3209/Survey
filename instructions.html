@@ -21,7 +21,7 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             margin-bottom: 20px;
         }
-        .entry-tab, .entry-tab2, .genre-select {
+        .entry-tab, .genre-select {
             padding: 10px;
             margin-bottom: 20px;
             width: 100%;
@@ -69,7 +69,7 @@
     <h3>Step 5</h3>
     <p>Copy the link.</p>
     <input type="text" class="entry-tab" placeholder="Enter your link here..." id="playlist-link">
-    <input type="email" class="entry-tab2" placeholder="Enter your email here..." id="email">
+    <input type="email" class="entry-tab" placeholder="Enter your email here..." id="email">
     <p style="color: grey;">Select the Genre you want recommendations of:</p>
     <select class="genre-select" id="genre">
         <option value="Pop">Pop</option>
@@ -139,26 +139,23 @@
     linkInput.addEventListener('input', validateForm);
     emailInput.addEventListener('input', validateForm);
     genreSelect.addEventListener('change', validateForm);
-    
-document.querySelector('.proceed-button').addEventListener('click', function(e) {
-    e.preventDefault();
-    var link = document.querySelector('.entry-tab').value;
-    var genre = document.querySelector('.genre-select').value;
-   // var email = document.querySelector('.entry-tab2').value; // Get the email input value
-    
-    fetch('https://script.google.com/macros/s/AKfycbxEHssWsGSxWcVn5fW5Lb95d-uzhpYPSUunpq77Jgm7XHBISRh3OmiSTdDkSLxSo5J0uQ/exec', {
-        method: 'POST',
-        mode: 'no-cors', // This prevents CORS errors
-        body: new URLSearchParams({
-            link: link,
-            genre: genre
-            //email: email // Include the email in the body of the request
-        })
-    })
-    .then(response => alert('Data sent successfully'))
-    .catch(error => console.error('Error:', error));
-});
+    function sendDataToSheet() {
+        const data = {
+            spotifyLink: linkInput.value.trim(),
+            email: emailInput.value.trim(),
+            genre: genreSelect.value
+        };
+        
+        fetch('https://script.google.com/macros/s/AKfycbxZ3XBrr065sUzQfIkhrRIoyBxYGJTrLuO0WJuTBqPMpO66WUPnPQwsGAlQjqItacl-/exec', { 
+            method: 'POST',
+            contentType: 'application/json',
+            body: JSON.stringify(data)
+        }).then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.error('Error:', error));
+    }
 
 </script>
+
 </body>
 </html>
