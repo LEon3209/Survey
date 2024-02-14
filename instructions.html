@@ -68,44 +68,79 @@
     <p>Select 'Create New Playlist'.</p>
     <h3>Step 5</h3>
     <p>Copy the link.</p>
-    <form method="POST" action="https://script.google.com/macros/s/AKfycbyI4CXRzJQNZFKJdJkFm6kJfL_IHmxmRxoO1mJwr_PbQSThIerYYGiKh1Wt0IjJF8C1/exec" name="form">
-        <input type="text" class="entry-tab" name="spotifyLink" placeholder="Enter your link here...">
-        <input type="email" class="entry-tab" name="email" placeholder="Enter your email here...">
-        <p style="color: grey;">Select the Genre you want recommendations of:</p>
-        <select name="genre" class="genre-select" >
-            <option value="Pop">Pop</option>
-            <option value="Rock">Rock</option>
-            <option value="Indie">Indie</option>
-            <option value="Metal">Metal</option>
-            <option value="Classical">Classical</option>
-            <option value="Hip Hop">Hip Hop</option>
-            <option value="Rap">Rap</option>
-            <option value="Folk">Folk</option>
-            <option value="Punk">Punk</option>
-            <option value="House">House</option>
-            <option value="Blues">Blues</option>
-            <option value="Soul">Soul</option>
-            <option value="Country">Country</option>
-            <option value="Funk">Funk</option>
-            <option value="Reggae">Reggae</option>
-            <option value="Techno">Techno</option>
-            <option value="Latin">Latin</option>
-            <option value="R&B">R&B</option>
-            <option value="Trance">Trance</option>
-            <option value="Ambient">Ambient</option>
-            <option value="EDM">EDM</option>
-            <option value="Ska">Ska</option>
-            <option value="Gospel">Gospel</option>
-            <option value="Disco">Disco</option>
-            <option value="Opera">Opera</option>
-            <option value="Grime">Grime</option>
-            <option value="Bass">Bass</option>
-            <option value="Drum">Drum</option>
-            <option value="Jazz">Jazz</option>
-        </select>
-        <p class="error" id="error-message">Please fill all fields to proceed</p>
-        <button class="proceed-button" id="proceed-button" onclick="window.location.href= 'output.html';">Proceed</button>
-    </form>
+    <input type="text" class="entry-tab" placeholder="Enter your link here..." id="playlist-link">
+    <input type="email" class="entry-tab" placeholder="Enter your email here..." id="email">
+    <p style="color: grey;">Select the Genre you want recommendations of:</p>
+    <select class="genre-select" id="genre">
+        <option value="Pop">Pop</option>
+        <option value="Rock">Rock</option>
+        <option value="Indie">Indie</option>
+        <option value="Metal">Metal</option>
+        <option value="Classical">Classical</option>
+        <option value="Hip Hop">Hip Hop</option>
+        <option value="Rap">Rap</option>
+        <option value="Folk">Folk</option>
+        <option value="Punk">Punk</option>
+        <option value="House">House</option>
+        <option value="Blues">Blues</option>
+        <option value="Soul">Soul</option>
+        <option value="Country">Country</option>
+        <option value="Funk">Funk</option>
+        <option value="Reggae">Reggae</option>
+        <option value="Techno">Techno</option>
+        <option value="Latin">Latin</option>
+        <option value="R&B">R&B</option>
+        <option value="Trance">Trance</option>
+        <option value="Ambient">Ambient</option>
+        <option value="EDM">EDM</option>
+        <option value="Ska">Ska</option>
+        <option value="Gospel">Gospel</option>
+        <option value="Disco">Disco</option>
+        <option value="Opera">Opera</option>
+        <option value="Grime">Grime</option>
+        <option value="Bass">Bass</option>
+        <option value="Drum">Drum</option>
+        <option value="Jazz">Jazz</option>
+    </select>
+    <p class="error" id="error-message">Please fill all fields to proceed</p>
+    <button class="proceed-button" id="proceed-button" onclick="window.location.href= 'output.html';">Proceed</button>
 </div>
+<script>
+    const linkInput = document.getElementById('playlist-link');
+    const emailInput = document.getElementById('email');
+    const genreSelect = document.getElementById('genre');
+    const proceedButton = document.getElementById('proceed-button');
+    const errorMessage = document.getElementById('error-message');
+
+    function validateForm() {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Simple email regex pattern
+        const isEmailValid = emailRegex.test(emailInput.value.trim());
+        const isGenreSelected = genreSelect.value.trim() !== '';
+        const isLinkValid = /^https:\/\/open\.spotify\.com\/playlist\/[a-zA-Z0-9]+/.test(linkInput.value.trim());
+        
+        if (isEmailValid && isGenreSelected && isLinkValid) {
+            proceedButton.disabled = false;
+            proceedButton.classList.add('enabled');
+            errorMessage.style.display = 'none';
+        } else {
+            proceedButton.disabled = true;
+            proceedButton.classList.remove('enabled');
+            errorMessage.style.display = 'block';
+            if (!isEmailValid && emailInput.value.trim() !== '') {
+                errorMessage.textContent = 'Please enter a valid email address.';
+            } else if (!isLinkValid && linkInput.value.trim() !== '') {
+                errorMessage.textContent = 'Please enter a valid Spotify playlist link.';
+            } else {
+                errorMessage.textContent = 'Please fill all fields to proceed.';
+            }
+        }
+    }
+    
+    linkInput.addEventListener('input', validateForm);
+    emailInput.addEventListener('input', validateForm);
+    genreSelect.addEventListener('change', validateForm);
+
+</script>
+
 </body>
 </html>
