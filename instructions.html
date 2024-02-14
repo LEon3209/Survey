@@ -70,42 +70,6 @@
     <p>Copy the link.</p>
     <button class="proceed-button" id="proceed-button" onclick="window.location.href= 'https://forms.gle/LvmejbgpSLNTzcKX9';">Fill the form.</button>
 </div>
-<script>
-    const linkInput = document.getElementById('playlist-link');
-    const emailInput = document.getElementById('email');
-    const genreSelect = document.getElementById('genre');
-    const proceedButton = document.getElementById('proceed-button');
-    const errorMessage = document.getElementById('error-message');
-
-    function validateForm() {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Simple email regex pattern
-        const isEmailValid = emailRegex.test(emailInput.value.trim());
-        const isGenreSelected = genreSelect.value.trim() !== '';
-        const isLinkValid = /^https:\/\/open\.spotify\.com\/playlist\/[a-zA-Z0-9]+/.test(linkInput.value.trim());
-        
-        if (isEmailValid && isGenreSelected && isLinkValid) {
-            proceedButton.disabled = false;
-            proceedButton.classList.add('enabled');
-            errorMessage.style.display = 'none';
-        } else {
-            proceedButton.disabled = true;
-            proceedButton.classList.remove('enabled');
-            errorMessage.style.display = 'block';
-            if (!isEmailValid && emailInput.value.trim() !== '') {
-                errorMessage.textContent = 'Please enter a valid email address.';
-            } else if (!isLinkValid && linkInput.value.trim() !== '') {
-                errorMessage.textContent = 'Please enter a valid Spotify playlist link.';
-            } else {
-                errorMessage.textContent = 'Please fill all fields to proceed.';
-            }
-        }
-    }
-    
-    linkInput.addEventListener('input', validateForm);
-    emailInput.addEventListener('input', validateForm);
-    genreSelect.addEventListener('change', validateForm);
-
-</script>
 
 </body>
 </html>
