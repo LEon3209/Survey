@@ -146,13 +146,14 @@
             genre: genreSelect.value
         };
         
-        fetch('https://script.google.com/macros/s/AKfycbxZ3XBrr065sUzQfIkhrRIoyBxYGJTrLuO0WJuTBqPMpO66WUPnPQwsGAlQjqItacl-/exec', { 
-            method: 'POST',
-            contentType: 'application/json',
-            body: JSON.stringify(data)
-        }).then(response => response.json())
-            .then(data => console.log(data))
-            .catch(error => console.error('Error:', error));
+    fetch('https://script.google.com/macros/s/AKfycbxZ3XBrr065sUzQfIkhrRIoyBxYGJTrLuO0WJuTBqPMpO66WUPnPQwsGAlQjqItacl-/exec', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    })
+
     }
 
 </script>
